@@ -52,7 +52,7 @@ const syncCourses = new syncCourses_1.SyncCoursesUseCase(courseRepo);
 const personStreams = new Set();
 const courseStreams = new Set();
 const sisSyncImpl = {
-    async SyncPersons(call) {
+    async syncPersons(call) {
         personStreams.add(call);
         const persons = await syncPersons.execute();
         for (const person of persons) {
@@ -61,7 +61,7 @@ const sisSyncImpl = {
         call.on('cancelled', () => personStreams.delete(call));
         call.on('close', () => personStreams.delete(call));
     },
-    async SyncCourses(call) {
+    async syncCourses(call) {
         courseStreams.add(call);
         const courses = await syncCourses.execute();
         for (const course of courses) {

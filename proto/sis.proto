@@ -173,9 +173,6 @@ message SyncReset {
 
 // SIS Sync service definition
 service SISSync {
-  // Streams all persons, then pushes updates as they occur
-  rpc SyncPersons(SyncRequest) returns (stream Person);
-
-  // Streams all courses, then pushes updates as they occur
-  rpc SyncCourses(SyncRequest) returns (stream Course);
+  rpc SyncPersons(SyncRequest) returns (stream SyncEvent);
+  rpc SyncCourses(SyncRequest) returns (stream SyncEvent);
 } 

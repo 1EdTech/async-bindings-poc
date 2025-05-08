@@ -18,7 +18,7 @@ const personStreams = new Set<ServerWritableStream<generated.SyncRequest, SyncEv
 const courseStreams = new Set<ServerWritableStream<generated.SyncRequest, SyncEvent>>();
 
 const sisSyncImpl = {
-  async SyncPersons(call: ServerWritableStream<generated.SyncRequest, SyncEvent>) {
+  async syncPersons(call: ServerWritableStream<generated.SyncRequest, SyncEvent>) {
     personStreams.add(call);
     const persons = await syncPersons.execute();
     for (const person of persons) {
@@ -27,7 +27,7 @@ const sisSyncImpl = {
     call.on('cancelled', () => personStreams.delete(call));
     call.on('close', () => personStreams.delete(call));
   },
-  async SyncCourses(call: ServerWritableStream<generated.SyncRequest, SyncEvent>) {
+  async syncCourses(call: ServerWritableStream<generated.SyncRequest, SyncEvent>) {
     courseStreams.add(call);
     const courses = await syncCourses.execute();
     for (const course of courses) {

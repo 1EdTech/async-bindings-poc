@@ -2153,25 +2153,23 @@ exports.SyncReset = {
     },
 };
 exports.SISSyncService = {
-    /** Streams all persons, then pushes updates as they occur */
     syncPersons: {
         path: "/eduapi.async.SISSync/SyncPersons",
         requestStream: false,
         responseStream: true,
         requestSerialize: (value) => Buffer.from(exports.SyncRequest.encode(value).finish()),
         requestDeserialize: (value) => exports.SyncRequest.decode(value),
-        responseSerialize: (value) => Buffer.from(exports.Person.encode(value).finish()),
-        responseDeserialize: (value) => exports.Person.decode(value),
+        responseSerialize: (value) => Buffer.from(exports.SyncEvent.encode(value).finish()),
+        responseDeserialize: (value) => exports.SyncEvent.decode(value),
     },
-    /** Streams all courses, then pushes updates as they occur */
     syncCourses: {
         path: "/eduapi.async.SISSync/SyncCourses",
         requestStream: false,
         responseStream: true,
         requestSerialize: (value) => Buffer.from(exports.SyncRequest.encode(value).finish()),
         requestDeserialize: (value) => exports.SyncRequest.decode(value),
-        responseSerialize: (value) => Buffer.from(exports.Course.encode(value).finish()),
-        responseDeserialize: (value) => exports.Course.decode(value),
+        responseSerialize: (value) => Buffer.from(exports.SyncEvent.encode(value).finish()),
+        responseDeserialize: (value) => exports.SyncEvent.decode(value),
     },
 };
 exports.SISSyncClient = (0, grpc_js_1.makeGenericClientConstructor)(exports.SISSyncService, "eduapi.async.SISSync");

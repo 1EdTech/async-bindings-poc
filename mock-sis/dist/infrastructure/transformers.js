@@ -3,10 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.dbPersonToProtoPerson = dbPersonToProtoPerson;
 exports.dbCourseToProtoCourse = dbCourseToProtoCourse;
 function dbPersonToProtoPerson(dbPerson) {
-    return {
-        sourcedId: dbPerson.sourcedId,
+    const person = {
+        sourcedId: dbPerson.sourcedId || '',
         otherIdentifiers: [],
-        recordLanguage: dbPerson.recordLanguage,
+        recordLanguage: dbPerson.recordLanguage || '',
         legalName: dbPerson.legalName ? JSON.parse(dbPerson.legalName) : undefined,
         formattedName: dbPerson.formattedName || '',
         otherNames: [],
@@ -26,9 +26,19 @@ function dbPersonToProtoPerson(dbPerson) {
         otherAddresses: [],
         agents: [],
         dateLastModified: dbPerson.dateLastModified || '',
-        recordStatus: dbPerson.recordStatus,
+        recordStatus: dbPerson.recordStatus || '',
         extensions: '',
     };
+    // Defensive check for undefined string fields
+    for (const [key, value] of Object.entries(person)) {
+        // Only check string fields
+        if (typeof value === 'undefined' && [
+            'sourcedId', 'recordLanguage', 'formattedName', 'gender', 'dateOfBirth', 'placeOfBirth', 'countryOfBirth', 'dateOfDeath', 'dateLastModified', 'recordStatus', 'extensions'
+        ].includes(key)) {
+            console.error(`dbPersonToProtoPerson: Field '${key}' is undefined! dbPerson:`, dbPerson, 'Generated:', person);
+        }
+    }
+    return person;
 }
 function dbCourseToProtoCourse(dbCourse) {
     return {
