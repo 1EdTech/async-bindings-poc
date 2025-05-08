@@ -3,7 +3,7 @@
 // versions:
 //   protoc-gen-ts_proto  v1.181.2
 //   protoc               v3.19.1
-// source: sis.proto
+// source: eduapi.proto
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };

@@ -2,7 +2,7 @@
 // versions:
 //   protoc-gen-ts_proto  v1.181.2
 //   protoc               v3.19.1
-// source: sis.proto
+// source: eduapi.proto
 
 /* eslint-disable */
 import {

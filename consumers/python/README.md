@@ -7,7 +7,7 @@ This is an **async Python gRPC consumer** that connects to the SISSync service a
 ```
 consumers/
   python/
-    generated/         # gRPC-generated Python code from proto/sis.proto
+    generated/         # gRPC-generated Python code from proto/eduapi.proto
     main.py            # The async consumer script
     requirements.txt   # Python dependencies
     README.md          # This file
@@ -30,9 +30,9 @@ consumers/
    pip install -r requirements.txt
    ```
 
-3. **(Re)generate gRPC code** (if `proto/sis.proto` changes):
+3. **(Re)generate gRPC code** (if `proto/eduapi.proto` changes):
    ```sh
-   python -m grpc_tools.protoc -I ../../proto --python_out=generated --grpc_python_out=generated ../../proto/sis.proto
+   python -m grpc_tools.protoc -I ../../proto --python_out=generated --grpc_python_out=generated ../../proto/eduapi.proto
    ```
 
 ## Running the Consumer
