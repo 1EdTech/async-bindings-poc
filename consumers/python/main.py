@@ -1,7 +1,7 @@
 import asyncio
 import logging
 import grpc
-from generated import sis_pb2, sis_pb2_grpc
+from generated import eduapi_pb2, eduapi_pb2_grpc
 
 logging.basicConfig(level=logging.INFO, format='[EVENT] %(message)s')
 
@@ -14,7 +14,7 @@ class Store:
         logging.info(f"Persons: {len(self.persons)}, Courses: {len(self.courses)}")
 
 async def sync_persons(stub, store: Store):
-    request = sis_pb2.SyncRequest(filter="")
+    request = eduapi_pb2.SyncRequest(filter="")
     try:
         async for event in stub.SyncPersons(request):
             if event.HasField('person'):
@@ -30,7 +30,7 @@ async def sync_persons(stub, store: Store):
     logging.info("Person stream ended")
 
 async def sync_courses(stub, store: Store):
-    request = sis_pb2.SyncRequest(filter="")
+    request = eduapi_pb2.SyncRequest(filter="")
     try:
         async for event in stub.SyncCourses(request):
             if event.HasField('course'):
@@ -49,7 +49,7 @@ async def main():
     logging.info("Consumer started")
     store = Store()
     async with grpc.aio.insecure_channel('localhost:50051') as channel:
-        stub = sis_pb2_grpc.SISSyncStub(channel)
+        stub = eduapi_pb2_grpc.SISSyncStub(channel)
         await asyncio.gather(
             sync_persons(stub, store),
             sync_courses(stub, store)

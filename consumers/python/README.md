@@ -32,7 +32,17 @@ consumers/
 
 3. **(Re)generate gRPC code** (if `proto/eduapi.proto` changes):
    ```sh
-   python -m grpc_tools.protoc -I ../../proto --python_out=generated --grpc_python_out=generated ../../proto/eduapi.proto
+   python3 -m grpc_tools.protoc -I ../../proto --python_out=generated --grpc_python_out=generated ../../proto/eduapi.proto
+   ```
+   
+   **Fix import issue in generated code:**
+   After regenerating, you may need to fix the import in `generated/eduapi_pb2_grpc.py` to avoid `ModuleNotFoundError`. Run:
+   ```sh
+   sed -i '' 's/^import eduapi_pb2 as eduapi__pb2$/from . import eduapi_pb2 as eduapi__pb2/' consumers/python/generated/eduapi_pb2_grpc.py
+   ```
+   Ensure `generated/__init__.py` exists:
+   ```sh
+   touch consumers/python/generated/__init__.py
    ```
 
 ## Running the Consumer
@@ -40,7 +50,7 @@ consumers/
 Make sure your gRPC server is running at `localhost:50051`.
 
 ```sh
-python main.py
+python3 main.py
 ```
 
 - The consumer will concurrently listen for both Person and Course events.
