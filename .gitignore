@@ -1,1 +1,3 @@
 node_modules
+mock-sis/mock-sis.db
+mock-sis/package-lock.json

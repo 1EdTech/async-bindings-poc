@@ -1,0 +1,26 @@
+{
+  "name": "mock-sis",
+  "version": "1.0.0",
+  "main": "dist/main.js",
+  "type": "commonjs",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/main.js",
+    "dev": "ts-node src/main.ts"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^9.7.0",
+    "better-sqlite3": "^8.0.0",
+    "readline-sync": "^1.4.10",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/faker": "^6.6.11",
+    "@types/node": "^20.0.0",
+    "@types/readline-sync": "^1.4.4",
+    "@types/uuid": "^9.0.0",
+    "ts-node": "^10.0.0",
+    "typescript": "^5.0.0"
+  }
+}
