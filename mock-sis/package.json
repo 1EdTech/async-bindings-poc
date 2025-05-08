@@ -6,21 +6,25 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/main.js",
-    "dev": "ts-node src/main.ts"
+    "dev": "ts-node src/main.ts",
+    "proto:generate": "grpc_tools_node_protoc --plugin=protoc-gen-ts_proto=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=src/generated --ts_proto_opt=outputServices=grpc-js,esModuleInterop=true,forceLong=string --proto_path=../proto ../proto/sis.proto"
   },
   "dependencies": {
     "@faker-js/faker": "^9.7.0",
     "better-sqlite3": "^8.0.0",
     "readline-sync": "^1.4.10",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "@grpc/grpc-js": "^1.9.9",
+    "@grpc/proto-loader": "^0.7.7"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.13",
-    "@types/faker": "^6.6.11",
     "@types/node": "^20.0.0",
     "@types/readline-sync": "^1.4.4",
     "@types/uuid": "^9.0.0",
     "ts-node": "^10.0.0",
-    "typescript": "^5.0.0"
+    "typescript": "^5.0.0",
+    "grpc-tools": "^1.13.0",
+    "ts-proto": "^1.164.0"
   }
 }

@@ -1,0 +1,181 @@
+syntax = "proto3";
+
+package eduapi.async;
+
+// Request message for syncing entities. The filter field is a placeholder for future query support.
+message SyncRequest {
+  string filter = 1; // Reserved for future filtering/scoping
+}
+
+// IdentifierEntry message
+message IdentifierEntry {
+  string identifier = 1;
+  string identifierType = 2;
+}
+
+// LanguageTypedString message
+message LanguageTypedString {
+  string recordLanguage = 1;
+  string value = 2;
+}
+
+// PersonName message
+message PersonName {
+  string familyName = 1;
+  string givenName = 2;
+  string additionalName = 3;
+  string patronymicName = 4;
+  string honorificPrefix = 5;
+  string honorificSuffix = 6;
+  string familyNamePrefix = 7;
+}
+
+// PersonNameEntry message
+message PersonNameEntry {
+  string nameType = 1;
+  string familyName = 2;
+  string givenName = 3;
+  string additionalName = 4;
+  string patronymicName = 5;
+  string honorificPrefix = 6;
+  string honorificSuffix = 7;
+  string familyNamePrefix = 8;
+}
+
+// OptionallyTypedEmail message
+message OptionallyTypedEmail {
+  string emailType = 1;
+  string email = 2;
+}
+
+// TypedEmail message
+message TypedEmail {
+  string emailType = 1;
+  string email = 2;
+}
+
+// OptionallyTypedPhone message
+message OptionallyTypedPhone {
+  string phoneType = 1;
+  string phone = 2;
+}
+
+// TypedPhone message
+message TypedPhone {
+  string phoneType = 1;
+  string phone = 2;
+}
+
+// GeoCoordinates message
+message GeoCoordinates {
+  double latitude = 1;
+  double longitude = 2;
+}
+
+// OptionallyTypedAddress message
+message OptionallyTypedAddress {
+  string addressType = 1;
+  string addressCountry = 2;
+  string addressCountryCode = 3;
+  string addressRegion = 4;
+  string addressLocality = 5;
+  string streetAddress = 6;
+  string postOfficeBoxNumber = 7;
+  string postalCode = 8;
+  GeoCoordinates geo = 9;
+}
+
+// TypedAddress message
+message TypedAddress {
+  string addressType = 1;
+  string addressCountry = 2;
+  string addressCountryCode = 3;
+  string addressRegion = 4;
+  string addressLocality = 5;
+  string streetAddress = 6;
+  string postOfficeBoxNumber = 7;
+  string postalCode = 8;
+  GeoCoordinates geo = 9;
+}
+
+// Agents message
+message Agents {
+  string agentType = 1;
+  string person = 2;
+  repeated LanguageTypedString description = 3;
+  string domain = 4;
+}
+
+// Person message
+message Person {
+  string sourcedId = 1;
+  repeated IdentifierEntry otherIdentifiers = 2;
+  string recordLanguage = 3;
+  PersonName legalName = 4;
+  string formattedName = 5;
+  repeated PersonNameEntry otherNames = 6;
+  string gender = 7;
+  repeated LanguageTypedString pronouns = 8;
+  repeated string languagesSpoken = 9;
+  string dateOfBirth = 10;
+  string placeOfBirth = 11;
+  string countryOfBirth = 12;
+  bool isDeceased = 13;
+  string dateOfDeath = 14;
+  OptionallyTypedEmail primaryEmail = 15;
+  repeated TypedEmail otherEmails = 16;
+  OptionallyTypedPhone primaryPhone = 17;
+  repeated TypedPhone otherPhones = 18;
+  OptionallyTypedAddress primaryAddress = 19;
+  repeated TypedAddress otherAddresses = 20;
+  repeated Agents agents = 21;
+  string dateLastModified = 22;
+  string recordStatus = 23;
+  // Extensions can be represented as a string (e.g., JSON) for flexibility
+  string extensions = 24;
+}
+
+// Course message (based on CourseTemplate)
+message Course {
+  string courseType = 1;
+  repeated string parent = 2;
+  string sourcedId = 3;
+  string recordLanguage = 4;
+  repeated LanguageTypedString title = 5;
+  repeated LanguageTypedString description = 6;
+  IdentifierEntry primaryCode = 7;
+  repeated IdentifierEntry otherCodes = 8;
+  string organization = 9;
+  string organizationCode = 10;
+  string level = 11;
+  string creditType = 12;
+  string creditsAwarded = 13;
+  LanguageTypedString gradingScheme = 14;
+  string teachingLanguage = 15;
+  string recordStatus = 16;
+  string dateLastModified = 17;
+  // Extensions can be represented as a string (e.g., JSON) for flexibility
+  string extensions = 18;
+}
+
+// Used to ask consumbers to resync (DB cleaned etc)
+message SyncEvent {
+    oneof event {
+        Person person = 1;
+        Course course = 2;
+        SyncReset reset = 3;
+    }
+}
+
+message SyncReset {
+    string reason = 1;
+}
+
+// SIS Sync service definition
+service SISSync {
+  // Streams all persons, then pushes updates as they occur
+  rpc SyncPersons(SyncRequest) returns (stream Person);
+
+  // Streams all courses, then pushes updates as they occur
+  rpc SyncCourses(SyncRequest) returns (stream Course);
+} 

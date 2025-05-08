@@ -12,6 +12,8 @@ exports.editRandomPerson = editRandomPerson;
 exports.editRandomCourse = editRandomCourse;
 exports.addAgent = addAgent;
 exports.getCounts = getCounts;
+exports.getAllPersons = getAllPersons;
+exports.getAllCourses = getAllCourses;
 const db_1 = __importDefault(require("./db"));
 const mockData_1 = require("./mockData");
 function addPerson() {
@@ -85,4 +87,10 @@ function getCounts() {
     const personCount = db_1.default.prepare('SELECT COUNT(*) as count FROM person').get().count;
     const courseCount = db_1.default.prepare('SELECT COUNT(*) as count FROM course').get().count;
     return { personCount, courseCount };
+}
+function getAllPersons() {
+    return db_1.default.prepare('SELECT * FROM person').all();
+}
+function getAllCourses() {
+    return db_1.default.prepare('SELECT * FROM course').all();
 }

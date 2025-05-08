@@ -4,27 +4,6 @@ exports.randomPerson = randomPerson;
 exports.randomCourse = randomCourse;
 const uuid_1 = require("uuid");
 const faker_1 = require("@faker-js/faker");
-function toTitleCase(str) {
-    return str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
-}
-function generateCourseTitle() {
-    // Use faker to generate a subject and a course type/level
-    const subject = faker_1.faker.helpers.arrayElement([
-        'Mathematics', 'Physics', 'Chemistry', 'Biology', 'Computer Science', 'History', 'Philosophy', 'Economics',
-        'Psychology', 'Sociology', 'Art', 'Music', 'Literature', 'Engineering', 'Business', 'Education', 'Political Science', 'Statistics', 'Geography', 'Environmental Science'
-    ]);
-    const type = faker_1.faker.helpers.arrayElement([
-        'Introduction to', 'Advanced', 'Fundamentals of', 'Principles of', 'Seminar in', 'Topics in', 'Survey of', 'Essentials of', 'Applied', 'Theory of'
-    ]);
-    const suffix = faker_1.faker.helpers.arrayElement(['I', 'II', '101', '201', '301', 'Lab', 'Workshop', 'Honors', 'Capstone', 'Practicum', '']);
-    let title = `${type} ${subject}`;
-    if (suffix && Math.random() > 0.5)
-        title += ` ${suffix}`;
-    return toTitleCase(title.trim());
-}
-const courseTypes = ['standard', 'honors', 'seminar', 'practicum'];
-const levels = ['undergraduate', 'graduate'];
-const creditTypes = ['credit', 'nonCredit'];
 function randomPerson() {
     const firstName = faker_1.faker.person.firstName();
     const lastName = faker_1.faker.person.lastName();
@@ -40,6 +19,23 @@ function randomPerson() {
         primaryEmail: JSON.stringify({ email: faker_1.faker.internet.email({ firstName, lastName }) }),
         dateLastModified: new Date().toISOString(),
     };
+}
+function toTitleCase(str) {
+    return str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+}
+function generateCourseTitle() {
+    const subject = faker_1.faker.helpers.arrayElement([
+        'Mathematics', 'Physics', 'Chemistry', 'Biology', 'Computer Science', 'History', 'Philosophy', 'Economics',
+        'Psychology', 'Sociology', 'Art', 'Music', 'Literature', 'Engineering', 'Business', 'Education', 'Political Science', 'Statistics', 'Geography', 'Environmental Science'
+    ]);
+    const type = faker_1.faker.helpers.arrayElement([
+        'Introduction to', 'Advanced', 'Fundamentals of', 'Principles of', 'Seminar in', 'Topics in', 'Survey of', 'Essentials of', 'Applied', 'Theory of'
+    ]);
+    const suffix = faker_1.faker.helpers.arrayElement(['I', 'II', '101', '201', '301', 'Lab', 'Workshop', 'Honors', 'Capstone', 'Practicum', '']);
+    let title = `${type} ${subject}`;
+    if (suffix && Math.random() > 0.5)
+        title += ` ${suffix}`;
+    return toTitleCase(title.trim());
 }
 function randomCourse() {
     const title = generateCourseTitle();
