@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Courses - Mock SIS</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <div class="container mx-auto py-10">
+    <div class="flex justify-between items-center mb-6">
+      <a href="/" class="text-blue-600 hover:underline">&larr; Home</a>
+      <a href="/students" class="text-blue-600 hover:underline">Students &rarr;</a>
+    </div>
+    <h1 class="text-2xl font-bold mb-4">Courses</h1>
+    <div class="bg-white rounded shadow p-6 mb-6">
+      <p class="text-lg">Total courses: <span class="font-bold"><%= courseCount %></span></p>
+    </div>
+    <form action="/courses/add" method="POST" class="flex gap-4 mb-8">
+      <button type="submit" class="px-6 py-2 bg-green-600 text-white rounded shadow hover:bg-green-700">Add Course</button>
+    </form>
+    <div class="bg-white rounded shadow p-6">
+      <h2 class="text-lg font-semibold mb-4">Course List</h2>
+      <div class="overflow-x-auto">
+        <table class="min-w-full text-sm text-left">
+          <thead>
+            <tr>
+              <th class="px-4 py-2">Title</th>
+              <th class="px-4 py-2">Type</th>
+              <th class="px-4 py-2">Level</th>
+              <th class="px-4 py-2">Credits</th>
+              <th class="px-4 py-2">Organization</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% courses.forEach(course => { %>
+              <tr class="border-t">
+                <td class="px-4 py-2">
+                  <% try { %>
+                    <%= JSON.parse(course.title)[0]?.value || '' %>
+                  <% } catch (e) { %>
+                    <%= course.title %>
+                  <% } %>
+                </td>
+                <td class="px-4 py-2"><%= course.courseType || '' %></td>
+                <td class="px-4 py-2"><%= course.level || '' %></td>
+                <td class="px-4 py-2"><%= course.creditsAwarded || '' %></td>
+                <td class="px-4 py-2"><%= course.organization || '' %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+</html> 

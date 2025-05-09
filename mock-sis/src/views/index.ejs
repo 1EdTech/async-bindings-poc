@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mock SIS Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <div class="container mx-auto py-10">
+    <h1 class="text-3xl font-bold mb-6 text-center">Mock SIS Dashboard</h1>
+    <div class="flex justify-center gap-8 mb-8">
+      <a href="/students" class="px-6 py-3 bg-blue-600 text-white rounded shadow hover:bg-blue-700">Students</a>
+      <a href="/courses" class="px-6 py-3 bg-green-600 text-white rounded shadow hover:bg-green-700">Courses</a>
+    </div>
+    <div class="max-w-md mx-auto bg-white rounded shadow p-6">
+      <h2 class="text-xl font-semibold mb-4">Summary</h2>
+      <ul class="space-y-2">
+        <li class="flex justify-between">
+          <span>Persons:</span>
+          <span class="font-bold"><%= counts.personCount %></span>
+        </li>
+        <li class="flex justify-between">
+          <span>Courses:</span>
+          <span class="font-bold"><%= counts.courseCount %></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html> 

@@ -16,6 +16,8 @@ const useCase = {
   addAgent: new usecases.AddAgentUseCase(personRepo),
   clearAllData: new usecases.ClearAllDataUseCase(personRepo, courseRepo),
   getCounts: new usecases.GetCountsUseCase(personRepo, courseRepo),
+  getAllPersons: new usecases.SyncPersonsUseCase(personRepo),
+  getAllCourses: new usecases.SyncCoursesUseCase(courseRepo),
 };
 
 export async function addPerson() {
@@ -68,4 +70,12 @@ export async function addAgent() {
 
 export async function getCounts() {
   return await useCase.getCounts.execute();
+}
+
+export async function getAllPersons() {
+  return await useCase.getAllPersons.execute();
+}
+
+export async function getAllCourses() {
+  return await useCase.getAllCourses.execute();
 } 
