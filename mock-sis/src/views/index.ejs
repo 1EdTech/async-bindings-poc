@@ -4,27 +4,66 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mock SIS Dashboard</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
+  <link href="/style.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
 </head>
 <body class="bg-gray-50 min-h-screen">
   <div class="container mx-auto py-10">
-    <h1 class="text-3xl font-bold mb-6 text-center">Mock SIS Dashboard</h1>
-    <div class="flex justify-center gap-8 mb-8">
-      <a href="/students" class="px-6 py-3 bg-blue-600 text-white rounded shadow hover:bg-blue-700">Students</a>
-      <a href="/courses" class="px-6 py-3 bg-green-600 text-white rounded shadow hover:bg-green-700">Courses</a>
+    <div class="relative mb-6">
+      <div class="flex flex-col items-center">
+        <h1 class="text-5xl font-extrabold mb-1 text-center">Realtime EduAPI Sync</h1>
+        <div class="text-sm text-gray-400 font-light text-center">(Proof of concept)</div>
+      </div>
+      <img src="/logo.svg" alt="1EdTech Logo" class="h-12 absolute right-0 top-0" />
     </div>
-    <div class="max-w-md mx-auto bg-white rounded shadow p-6">
-      <h2 class="text-xl font-semibold mb-4">Summary</h2>
-      <ul class="space-y-2">
-        <li class="flex justify-between">
-          <span>Persons:</span>
-          <span class="font-bold"><%= counts.personCount %></span>
-        </li>
-        <li class="flex justify-between">
-          <span>Courses:</span>
-          <span class="font-bold"><%= counts.courseCount %></span>
-        </li>
-      </ul>
+    <div class="mx-auto max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-6 items-start justify-center">
+      <!-- Left column: About and Next Steps -->
+      <div class="flex flex-col gap-6">
+        <div class="p-4 bg-white rounded shadow">
+          <h2 class="text-2xl font-bold mb-2">About This Project</h2>
+          <p class="mb-2">
+            This project demonstrates how to <span class="font-semibold">push updates to remote systems in realtime</span> using a mock Student Information System (SIS).
+            It provides both a web interface and a gRPC server to show how changes (like adding students or courses) can be broadcast to connected consumers instantly.
+          </p>
+        </div>
+        <div class="p-4 bg-blue-50 rounded shadow border border-blue-200">
+          <h2 class="text-xl font-bold mb-2">Next Steps: See It In Action</h2>
+          <p class="mb-2">
+            To see realtime updates in action, connect your own remote systems as consumers. For setup instructions and example code, see the project repository:
+          </p>
+          <a href="https://github.com/1EdTech/async-bindings-poc" target="_blank" class="text-blue-700 underline font-semibold">View on GitHub</a>
+        </div>
+      </div>
+      <!-- Right column: App well -->
+      <div>
+        <div class="mb-6 p-4 bg-gray-100 rounded-xl shadow">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-start mb-4">
+            <!-- Students Card -->
+            <div class="bg-white rounded-2xl shadow-lg p-4 flex flex-col items-center justify-center">
+              <div class="text-5xl font-extrabold text-primary mb-2"><%= counts.personCount %></div>
+              <div class="text-lg font-semibold mb-4 text-gray-700">Students</div>
+              <form action="/add-person" method="POST">
+                <button type="submit" class="px-5 py-2 bg-primary text-white rounded-lg font-semibold shadow hover:bg-blue-900">Add</button>
+              </form>
+            </div>
+            <!-- Courses Card -->
+            <div class="bg-white rounded-2xl shadow-lg p-4 flex flex-col items-center justify-center">
+              <div class="text-5xl font-extrabold text-primary mb-2"><%= counts.courseCount %></div>
+              <div class="text-lg font-semibold mb-4 text-gray-700">Courses</div>
+              <form action="/add-course" method="POST">
+                <button type="submit" class="px-5 py-2 bg-primary text-white rounded-lg font-semibold shadow hover:bg-blue-900">Add</button>
+              </form>
+            </div>
+          </div>
+          <div class="flex flex-col gap-4">
+            <a href="/students" class="px-6 py-3 bg-primary text-white rounded-lg font-semibold shadow hover:bg-blue-900 w-full text-center">Students</a>
+            <a href="/courses" class="px-6 py-3 bg-primary text-white rounded-lg font-semibold shadow hover:bg-blue-900 w-full text-center">Courses</a>
+            <form action="/clear-all" method="POST" class="w-full">
+              <button type="submit" class="px-6 py-2 bg-red-600 text-white rounded-lg font-semibold shadow hover:bg-red-700 w-full text-center">Clear All Data</button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </body>

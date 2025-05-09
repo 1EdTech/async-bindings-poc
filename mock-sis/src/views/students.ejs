@@ -4,42 +4,55 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Students - Mock SIS</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
+  <link href="/style.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
 </head>
-<body class="bg-gray-50 min-h-screen">
+<body class="bg-gray-50 min-h-screen font-sans">
   <div class="container mx-auto py-10">
     <div class="flex justify-between items-center mb-6">
-      <a href="/" class="text-blue-600 hover:underline">&larr; Home</a>
-      <a href="/courses" class="text-green-600 hover:underline">Courses &rarr;</a>
+      <a href="/" class="text-primary font-semibold hover:underline">&larr; Home</a>
+      <a href="/courses" class="text-primary font-semibold hover:underline">Courses &rarr;</a>
     </div>
-    <h1 class="text-2xl font-bold mb-4">Students</h1>
-    <div class="bg-white rounded shadow p-6 mb-6">
-      <p class="text-lg">Total students: <span class="font-bold"><%= personCount %></span></p>
-    </div>
-    <form action="/students/add" method="POST" class="flex gap-4 mb-8">
-      <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded shadow hover:bg-blue-700">Add Student</button>
-    </form>
-    <div class="bg-white rounded shadow p-6">
-      <h2 class="text-lg font-semibold mb-4">Student List</h2>
+    <div class="max-w-4xl mx-auto bg-white rounded shadow p-6">
+      <h1 class="text-4xl font-extrabold mb-1">Students</h1>
+      <div class="text-sm text-gray-400 font-light mb-6">(All demo data)</div>
+      <div class="flex items-center justify-between mb-6">
+        <p class="text-lg">Total students: <span class="font-bold"><%= personCount %></span></p>
+        <form action="/students/add" method="POST">
+          <button type="submit" class="px-5 py-2 bg-primary text-white rounded-lg font-semibold shadow hover:bg-blue-900">Add Student</button>
+        </form>
+      </div>
       <div class="overflow-x-auto">
-        <table class="min-w-full text-sm text-left">
-          <thead>
+        <table class="min-w-full text-sm text-left border rounded">
+          <thead class="bg-gray-100">
             <tr>
-              <th class="px-4 py-2">Name</th>
-              <th class="px-4 py-2">Legal Name</th>
-              <th class="px-4 py-2">Gender</th>
-              <th class="px-4 py-2">Date of Birth</th>
-              <th class="px-4 py-2">Email</th>
+              <th class="px-4 py-2 font-semibold">Name</th>
+              <th class="px-4 py-2 font-semibold">Legal Name</th>
+              <th class="px-4 py-2 font-semibold">Gender</th>
+              <th class="px-4 py-2 font-semibold">Date of Birth</th>
+              <th class="px-4 py-2 font-semibold">Email</th>
             </tr>
           </thead>
           <tbody>
             <% students.forEach(student => { %>
               <tr class="border-t">
                 <td class="px-4 py-2"><%= student.formattedName || '' %></td>
-                <td class="px-4 py-2"><%= student.legalName || '' %></td>
+                <td class="px-4 py-2">
+                  <% try { %>
+                    <%= JSON.parse(student.legalName)?.given || '' %> <%= JSON.parse(student.legalName)?.family || '' %>
+                  <% } catch (e) { %>
+                    <%= student.legalName || '' %>
+                  <% } %>
+                </td>
                 <td class="px-4 py-2"><%= student.gender || '' %></td>
                 <td class="px-4 py-2"><%= student.dateOfBirth || '' %></td>
-                <td class="px-4 py-2"><%= student.primaryEmail || '' %></td>
+                <td class="px-4 py-2">
+                  <% try { %>
+                    <%= JSON.parse(student.primaryEmail)?.email || '' %>
+                  <% } catch (e) { %>
+                    <%= student.primaryEmail || '' %>
+                  <% } %>
+                </td>
               </tr>
             <% }) %>
           </tbody>

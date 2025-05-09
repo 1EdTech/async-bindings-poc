@@ -4,32 +4,33 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Courses - Mock SIS</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
+  <link href="/style.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
 </head>
-<body class="bg-gray-50 min-h-screen">
+<body class="bg-gray-50 min-h-screen font-sans">
   <div class="container mx-auto py-10">
     <div class="flex justify-between items-center mb-6">
-      <a href="/" class="text-blue-600 hover:underline">&larr; Home</a>
-      <a href="/students" class="text-blue-600 hover:underline">Students &rarr;</a>
+      <a href="/" class="text-primary font-semibold hover:underline">&larr; Home</a>
+      <a href="/students" class="text-primary font-semibold hover:underline">Students &rarr;</a>
     </div>
-    <h1 class="text-2xl font-bold mb-4">Courses</h1>
-    <div class="bg-white rounded shadow p-6 mb-6">
-      <p class="text-lg">Total courses: <span class="font-bold"><%= courseCount %></span></p>
-    </div>
-    <form action="/courses/add" method="POST" class="flex gap-4 mb-8">
-      <button type="submit" class="px-6 py-2 bg-green-600 text-white rounded shadow hover:bg-green-700">Add Course</button>
-    </form>
-    <div class="bg-white rounded shadow p-6">
-      <h2 class="text-lg font-semibold mb-4">Course List</h2>
+    <div class="max-w-4xl mx-auto bg-white rounded shadow p-6">
+      <h1 class="text-4xl font-extrabold mb-1">Courses</h1>
+      <div class="text-sm text-gray-400 font-light mb-6">(All demo data)</div>
+      <div class="flex items-center justify-between mb-6">
+        <p class="text-lg">Total courses: <span class="font-bold"><%= courseCount %></span></p>
+        <form action="/courses/add" method="POST">
+          <button type="submit" class="px-5 py-2 bg-primary text-white rounded-lg font-semibold shadow hover:bg-blue-900">Add Course</button>
+        </form>
+      </div>
       <div class="overflow-x-auto">
-        <table class="min-w-full text-sm text-left">
-          <thead>
+        <table class="min-w-full text-sm text-left border rounded">
+          <thead class="bg-gray-100">
             <tr>
-              <th class="px-4 py-2">Title</th>
-              <th class="px-4 py-2">Type</th>
-              <th class="px-4 py-2">Level</th>
-              <th class="px-4 py-2">Credits</th>
-              <th class="px-4 py-2">Organization</th>
+              <th class="px-4 py-2 font-semibold">Title</th>
+              <th class="px-4 py-2 font-semibold">Type</th>
+              <th class="px-4 py-2 font-semibold">Level</th>
+              <th class="px-4 py-2 font-semibold">Credits</th>
+              <th class="px-4 py-2 font-semibold">Organization</th>
             </tr>
           </thead>
           <tbody>
