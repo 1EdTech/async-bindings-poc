@@ -32,4 +32,4 @@ See the respective README in each directory for details on installation, running
 
 ---
 
-For more about EduAPI, see the [1EdTech EduAPI page](https://www.1edtech.org/eduapi).
+For more about EduAPI, see the [1EdTech EduAPI page](https://www.1edtech.org/standards/edu-api).
