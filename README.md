@@ -1,6 +1,6 @@
 # EduAPI Async Proof of Concept
 
-This repository is a **Proof of Concept (PoC)** for testing a small part of the [EduAPI](https://www.1edtech.org/eduapi) specification over a proposed asynchronous binding using gRPC. The goal is to explore and validate async streaming patterns for EduAPI data exchange between a Producer (mock-sis) and various Consumers.
+This repository is a **Proof of Concept (PoC)** for testing a small part of the [Edu-API](https://www.1edtech.org/eduapi) specification over a proposed asynchronous binding using gRPC. The goal is to explore and validate async streaming patterns for EduAPI data exchange between a Producer (mock-sis) and various Consumers.
 
 ## Project Structure
 
